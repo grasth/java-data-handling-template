@@ -1,5 +1,7 @@
 package com.epam.izh.rd.online.service;
 
+import java.util.Arrays;
+
 public class SimpleTextService implements TextService {
 
     /**
@@ -13,7 +15,8 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public String removeString(String base, String remove) {
-        return null; //TODO
+
+        return base.replace(remove, "");
     }
 
     /**
@@ -24,18 +27,27 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public boolean isQuestionString(String text) {
-        return false; //TODO
+        int size = text.length();
+        if(size > 0)
+            return text.charAt(size-1) == '?';
+        return false;
     }
 
-    /**
-     * Реализовать функционал соединения переданных строк.
-     *
-     * Например для параметров {"Smells", " ", "Like", " ", "Teen", " ", "Spirit"}
-     * метод вернет "Smells Like Teen Spirit"
-     */
-    @Override
-    public String concatenate(String... elements) {
-        return null; //TODO
+  /**
+   * Реализовать функционал соединения переданных строк.
+   *
+   * <p>Например для параметров {"Smells", " ", "Like", " ", "Teen", " ", "Spirit"} метод вернет
+   * "Smells Like Teen Spirit"
+   */
+  @Override
+  public String concatenate(String... elements) {
+    String elementstostring = "";
+
+    for (String str : elements) {
+        elementstostring += str;
+    }
+
+    return elementstostring;
     }
 
     /**
@@ -47,7 +59,19 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public String toJumpCase(String text) {
-        return null; //TODO
+        char[] chars = text.toCharArray();
+        text = "";
+        boolean isUp = false;
+
+
+        for (int i=0; i < chars.length;i++){
+            if(isUp)
+                text += Character.toUpperCase(chars[i]);
+            else
+                text += Character.toLowerCase(chars[i]);
+            isUp =!isUp;
+        }
+        return text;
     }
 
     /**
@@ -59,6 +83,14 @@ public class SimpleTextService implements TextService {
      */
     @Override
     public boolean isPalindrome(String string) {
-       return false; //TODO
+
+    if (string.length() > 1) {
+      string = string.replace(" ", "").toLowerCase();
+      for (int i = 0; i < string.length() / 2; i++) {
+        if (string.charAt(i) != string.charAt(string.length() - i - 1)) return false;
+      }
+        return true;
+        }
+    return false;
     }
 }
